@@ -15,11 +15,17 @@ from task_manager import TaskManager
 
 def test_adding_and_completing_task():
     test_list = TaskManager()
+    initial_list_length = len(test_list.get_task_storage())
 
     test_list.add_task("Добавленная задача")
+    list_length_after_appending = len(test_list.get_task_storage())
+
+    assert initial_list_length + 1 == list_length_after_appending, \
+        "Ошибка: После добавления задачи, список задач должен увеличится на 1."
+
     test_list.complete_task(0)
 
-    assert test_list.get_task_storage()[0]["completed"] == True, \
+    assert test_list.get_task_storage()[0]["completed"] is True, \
         "Ошибка: Статус задачи под индексом '0' должен быть 'True'."
 
 
@@ -29,17 +35,17 @@ def test_deleting_task_and_checking():
     test_list.add_task("Добавленная задача 1")
     test_list.add_task("Добавленная задача 2")
     test_list.add_task("Добавленная задача 3")
+    list_length_after_appending = len(test_list.get_task_storage())
 
     test_list.remove_task(1)
+    list_length_after_deletion = len(test_list.get_task_storage())
 
-    list_unique_values = []
-    for each_task in test_list.get_task_storage():
-        list_unique_values.append(
-            each_task['description'] == "Добавленная задача 2"
-        )
+    assert list_length_after_appending - 1 == list_length_after_deletion, \
+        "Ошибка: После удаления задачи, список задач должен уменьшиться на 1."
 
-    assert set(list_unique_values) == {False}, \
-        "Ошибка: Задача под индексом '1' должна исчезнуть из списка."
+    for task in test_list.get_task_storage():
+        assert ("Добавленная задача 2" in task['description']) is False, \
+            "Ошибка: Задача под индексом '1' должна исчезнуть из списка."
 
 
 def saving_and_loading_tasks():

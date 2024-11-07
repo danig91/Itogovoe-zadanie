@@ -48,7 +48,7 @@ def test_deleting_task_and_checking():
             "Ошибка: Задача под индексом '1' должна исчезнуть из списка."
 
 
-def saving_and_loading_tasks():
+def test_saving_and_loading_tasks():
     test_list = TaskManager()
     test_list_2 = TaskManager()
 
@@ -69,4 +69,4 @@ test_adding_and_completing_task()
 # **Второй тест**
 test_deleting_task_and_checking()
 # **Третий тест**
-saving_and_loading_tasks()
+test_saving_and_loading_tasks()
